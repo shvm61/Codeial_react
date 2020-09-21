@@ -1,14 +1,14 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React from "react";
+import { connect } from "react-redux";
 import {
   BrowserRouter as Router,
   Route,
   Switch,
   Redirect,
-} from 'react-router-dom';
-import PropTypes from 'prop-types';
+} from "react-router-dom";
+import PropTypes from "prop-types";
 
-import { fetchPosts } from '../actions/posts';
+import { fetchPosts } from "../actions/posts";
 import {
   Home,
   Navbar,
@@ -17,11 +17,11 @@ import {
   Signup,
   Settings,
   UserProfile,
-} from './';
-import * as jwtDecode from 'jwt-decode';
-import { authenticateUser } from '../actions/auth';
-import { getAuthTokenFromLocalStorage } from '../helpers/utils';
-import { fetchUserFriends } from '../actions/friends';
+} from "./";
+import jwtDecode from "jwt-decode";
+import { authenticateUser } from "../actions/auth";
+import { getAuthTokenFromLocalStorage } from "../helpers/utils";
+import { fetchUserFriends } from "../actions/friends";
 
 const PrivateRoute = (privateRouteProps) => {
   const { isLoggedin, path, component: Component } = privateRouteProps;
@@ -30,14 +30,14 @@ const PrivateRoute = (privateRouteProps) => {
     <Route
       path={path}
       render={(props) => {
-        console.log('props', props);
-        console.log('isLoggedin', isLoggedin);
+        console.log("props", props);
+        console.log("isLoggedin", isLoggedin);
         return isLoggedin ? (
           <Component {...props} />
         ) : (
           <Redirect
             to={{
-              pathname: '/login',
+              pathname: "/login",
               state: {
                 from: props.location,
               },
@@ -58,7 +58,7 @@ class App extends React.Component {
     if (token) {
       const user = jwtDecode(token);
 
-      console.log('user', user);
+      console.log("user", user);
       this.props.dispatch(
         authenticateUser({
           email: user.email,
